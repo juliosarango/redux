@@ -7,6 +7,8 @@ import Modal from '../../widgets/components/modal'
 import HandleError from '../../error/containers/handle-error'
 import VideoPlayer from '../../player/containers/video-player'
 
+import { connect } from 'react-redux';
+
 class Home extends Component {
 
   state = {
@@ -33,7 +35,7 @@ class Home extends Component {
          <HomeLayout>
            <Related />
            <Categories
-             categories={this.props.data.categories}
+             categories={this.props.categories}
              handelOpenModal = {this.handelOpenModal}
            />
            {
@@ -58,4 +60,16 @@ class Home extends Component {
    }
 }
 
-export default Home
+//el state es el estado de redux, los props son los que sen evnían
+// al hacer render el componente
+function mapStateToProps(state, props) {
+  // renornamos los datos que queremos enviar al componente Home como nuevas propiedades
+  return {
+    // en este caso enviamos categories al componente Home
+    categories: state.data.categories
+
+  }
+
+}
+
+export default connect(mapStateToProps)(Home)
